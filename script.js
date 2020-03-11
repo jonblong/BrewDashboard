@@ -7,6 +7,7 @@ fetch(url)
   .then((data) => {
     console.log(data);
     setPower(data.CurrentPower);
+    powerLabel.innerText = `Current Power: ${getPower()} MW`;
   })
   .catch(function(error) {
     console.log(error);
@@ -14,6 +15,8 @@ fetch(url)
 
 function setPower(newPower) {
   power = newPower;
-  console.log(power / 1000);
-  powerLabel.innerText = `Current Power: ${power} MW`;
+}
+
+function getPower() {
+  return +(Math.round((power / 1000) + "e+" + 2) + "e-" + 2);
 }
