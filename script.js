@@ -1,10 +1,22 @@
 const url = 'http://localhost:6969/terrapin'
 const powerLabel = document.getElementById('power');
+const barrelsTodayLabel = document.getElementById('barrelsToday');
+
+const timeInterval = 900000;
+const tickRate     = 5000;
+const timeConstant = timeInterval / tickRate;
 
 let currentPower   = 0;
 let energyToday    = 0;
 let energyMonth    = 0;
 let energyLifetime = 0;
+
+let barrelsToday    = 0;
+let barrelsMonth    = 0;
+let BarrelsLifetime = 0;
+
+let energyInterval = 60000000;
+let currentTick    = 0;
 
 /* Fetch dummy data and update variables/labels */
 function getSolarData() {
@@ -24,7 +36,19 @@ function getSolarData() {
 }
 
 getSolarData();
-setInterval(getSolarData, 900000);
+setInterval(tick, tickRate);
+
+function tick() {
+  barrelsToday += ((energyInterval / 50000) / timeConstant);
+  console.log(barrelsToday);
+  barrelsTodayLabel.innerText = `Barrels Today: ${Math.floor(barrelsToday)}`;
+
+  currentTick += tickRate;
+  if (currentTick >= timeInterval) {
+    getSolarData();
+    currentTick = 0;
+  }
+}
 
 /* Set power/energy in W/Wh */
 function setPower(newPower) {
@@ -32,15 +56,21 @@ function setPower(newPower) {
 }
 
 function setEnergyToday(newEnergy) {
+  //energyInterval = newEnergy - energyToday;
   energyToday = newEnergy;
+  console.log(`Produced ${barrelsToday} barrels today.`);
 }
 
 function setEnergyMonth(newEnergy) {
   energyMonth = newEnergy;
+  barrelsMonth = energyMonth / 50000;
+  console.log(`Produced ${barrelsMonth} barrels this month.`);
 }
 
 function setEnergyLifetime(newEnergy) {
   energyLifetime = newEnergy;
+  barrelsLifetime = energyLifetime / 50000;
+  console.log(`Produced ${barrelsLifetime} barrels total.`);
 }
 
 /* Get power/energy in kW/kWh */
