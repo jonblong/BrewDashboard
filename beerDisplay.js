@@ -60,7 +60,6 @@ function tick() {
 function initApp() {
   initStats();
   initCanvas();
-  initLabels();
   setInterval(tick, tickRate);
 }
 
@@ -73,6 +72,8 @@ function initStats() {
       energyToday    = data.EnergyToday;
       energyMonth    = data.EnergyMonth;
       energyLifetime = data.EnergyLifetime;
+      initLabels();
+      drawBarrel(((energyToday / 50000) % 1).toFixed(4));
     })
     .catch(function(error) {
       console.log(error);
@@ -142,7 +143,7 @@ function initLabels() {
   ctx.fillText("Terraprint's Impact:", 900, 100);
   ctx.fillText("Barrels Brewed", 900, 350);
   ctx.fillText("with Solar Power:", 900, 400);
-  ctx.fillText(`Current Power: ${currentPower}`, 900, 640);
+  ctx.fillText(`Current Power: ${(nextPower / 1000).toFixed(2)} kW`, 900, 640);
 
   ctx.font = "24px Josefin Sans";
   /* Trees Saved */
@@ -159,15 +160,15 @@ function initLabels() {
 
   /* Plastic Saved */
   ctx.fillText("Today:", 900, 450);
-  ctx.fillText((energyToday / 50000), 1200, 450);
+  ctx.fillText((energyToday / 50000).toFixed(2), 1200, 450);
 
   /* Plastic Saved */
   ctx.fillText("This Month:", 900, 490);
-  ctx.fillText((energyMonth / 50000) + (energyToday / 50000), 1200, 490);
+  ctx.fillText(((energyMonth / 50000) + (energyToday / 50000)).toFixed(2), 1200, 490);
 
   /* Plastic Saved */
   ctx.fillText("Lifetime:", 900, 530);
-  ctx.fillText((energyLifetime / 50000) + (energyToday / 50000), 1200, 530);
+  ctx.fillText(((energyLifetime / 50000) + (energyToday / 50000)).toFixed(2), 1200, 530);
 }
 
 function updateLabels() {
