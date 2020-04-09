@@ -4,17 +4,19 @@ const WIDTH = window.innerWidth;
 const HEIGHT = window.innerHeight;
 const IMG_WIDTH = 407;
 const IMG_HEIGHT = 558;
+const FULL_IMG_WIDTH = 321;
+const FULL_IMG_HEIGHT = 428;
 
 const empty = new Image();
 const full  = new Image();
 empty.src = "empty.png";
-full.src  = "full.png";
+full.src  = "fullNew.png";
 
 const terrapinBlue = 'rgb(47, 43, 66)';
-const sunYellow    = 'rgb(255, 255, 102)'
+const sunYellow    = 'rgb(255, 255, 102)';
 
 const timeInterval = 15000;
-const tickRate     = 50;
+const tickRate     = 20;
 const timeConstant = timeInterval / tickRate;
 
 let currentPower   = 0;
@@ -114,18 +116,20 @@ function initCanvas() {
 /* Draws the barrel filled to a given percentage, from 0 to 1 */
 function drawBarrel(progress) {
   ctx.fillStyle = terrapinBlue;
-  let barrelHeight = ((1 - progress) * IMG_HEIGHT);
-  let xToDraw = (WIDTH / 3) - (IMG_WIDTH / 3);
+  let barrelHeight = ((1 - progress) * FULL_IMG_HEIGHT);
+  let xToDrawEmpty = (WIDTH / 3) - (IMG_WIDTH / 3);
   let yToDrawEmpty = (HEIGHT / 2) - (IMG_HEIGHT / 2);
-  let yToDrawFull  = yToDrawEmpty + barrelHeight;
 
-  ctx.fillRect(xToDraw, yToDrawEmpty, IMG_WIDTH, IMG_HEIGHT);
+  let yToDrawFull = yToDrawEmpty + 90 + barrelHeight;
+  let xToDrawFull = xToDrawEmpty + 43;
 
-  ctx.drawImage(empty, xToDraw, yToDrawEmpty);
+  ctx.fillRect(xToDrawEmpty, yToDrawEmpty, IMG_WIDTH, IMG_HEIGHT);
+
+  ctx.drawImage(empty, xToDrawEmpty, yToDrawEmpty);
   ctx.drawImage(full, 0, barrelHeight,
-                      IMG_WIDTH, IMG_HEIGHT-barrelHeight,
-                      xToDraw, yToDrawFull,
-                      IMG_WIDTH, IMG_HEIGHT-barrelHeight);
+                      FULL_IMG_WIDTH, FULL_IMG_HEIGHT-barrelHeight,
+                      xToDrawFull, yToDrawFull,
+                      FULL_IMG_WIDTH, FULL_IMG_HEIGHT-barrelHeight);
 }
 
 function printStats() {
