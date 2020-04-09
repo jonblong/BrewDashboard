@@ -4,13 +4,13 @@ const WIDTH = window.innerWidth;
 const HEIGHT = window.innerHeight;
 const IMG_WIDTH = 407;
 const IMG_HEIGHT = 558;
-const FULL_IMG_WIDTH = 321;
-const FULL_IMG_HEIGHT = 428;
+const FULL_IMG_WIDTH = 337;
+const FULL_IMG_HEIGHT = 442;
 
 const empty = new Image();
 const full  = new Image();
 empty.src = "empty.png";
-full.src  = "fullNew.png";
+full.src  = "fullNewForReal.png";
 
 const terrapinBlue = 'rgb(47, 43, 66)';
 const sunYellow    = 'rgb(255, 255, 102)';
@@ -120,8 +120,8 @@ function drawBarrel(progress) {
   let xToDrawEmpty = (WIDTH / 3) - (IMG_WIDTH / 3);
   let yToDrawEmpty = (HEIGHT / 2) - (IMG_HEIGHT / 2);
 
-  let yToDrawFull = yToDrawEmpty + 90 + barrelHeight;
-  let xToDrawFull = xToDrawEmpty + 43;
+  let yToDrawFull = yToDrawEmpty + 85 + barrelHeight;
+  let xToDrawFull = xToDrawEmpty + 40;
 
   ctx.fillRect(xToDrawEmpty, yToDrawEmpty, IMG_WIDTH, IMG_HEIGHT);
 
